@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="416.0" prefWidth="640.0" style="-fx-background-color: #BDD8E9;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginFormController">
+   <children>
+      <Label layoutX="180.0" layoutY="14.0" prefHeight="32.0" prefWidth="86.0" text="DASHBOARD" textFill="#001d39">
+         <font>
+            <Font name="Poppins SemiBold" size="13.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="51.0" fitWidth="48.0" layoutX="582.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/Logo.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="277.0" layoutY="14.0" prefHeight="32.0" prefWidth="64.0" text="BOOKS" textFill="#001d39">
+         <font>
+            <Font name="Poppins SemiBold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="341.0" layoutY="14.0" prefHeight="32.0" prefWidth="76.0" text="CUSTOMER" textFill="#001d39">
+         <font>
+            <Font name="Poppins SemiBold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="433.0" layoutY="14.0" prefHeight="32.0" prefWidth="102.0" text="BOOK RENTALS" textFill="#001d39">
+         <font>
+            <Font name="Poppins SemiBold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="44.0" layoutY="22.0" text="Hello Malmi" textFill="#001d39">
+         <font>
+            <Font name="Poppins Regular" size="12.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="25.0" fitWidth="28.0" layoutX="14.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/icon/icon_profile.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="23.0" fitWidth="25.0" layoutX="587.0" layoutY="219.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/icon/icon_refresh.png" />
+         </image>
+      </ImageView>
+      <AnchorPane fx:id="paneLoadContent" layoutY="60.0" prefHeight="356.0" prefWidth="640.0" />
+   </children>
+</AnchorPane>

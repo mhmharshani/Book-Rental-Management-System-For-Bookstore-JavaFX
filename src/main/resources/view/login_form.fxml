@@ -1,14 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.LoginFormController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="416.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginFormController">
+   <children>
+      <ImageView fitHeight="425.0" fitWidth="640.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/BG_login.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="207.0" layoutY="57.0" text="Hello there" textFill="#001d39">
+         <font>
+            <Font name="Poppins Regular" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="207.0" layoutY="98.0" text="welcome to Magic Books" textFill="#001d39">
+         <font>
+            <Font name="Poppins Bold" size="22.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="124.0" fitWidth="132.0" layoutX="44.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/Logo.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="207.0" layoutY="157.0" text="EMAIL" textFill="#001d39">
+         <font>
+            <Font name="Poppins Regular" size="12.0" />
+         </font>
+      </Label>
+      <JFXTextField layoutX="207.0" layoutY="183.0" promptText="Enter your email address" unFocusColor="#001d39">
+         <font>
+            <Font name="Poppins Regular" size="11.0" />
+         </font>
+      </JFXTextField>
+      <Label layoutX="207.0" layoutY="231.0" text="PASSWORD" textFill="#001d39">
+         <font>
+            <Font name="Poppins Regular" size="12.0" />
+         </font>
+      </Label>
+      <JFXButton layoutX="207.0" layoutY="301.0" prefHeight="25.0" prefWidth="64.0" style="-fx-background-color: #49769F;" text="Login" textFill="#bdd8e9">
+         <font>
+            <Font name="Poppins Regular" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXCheckBox layoutX="283.0" layoutY="305.0" prefHeight="18.0" prefWidth="144.0" text="As a Staff Memeber" textFill="#001d39">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+      </JFXCheckBox>
+      <JFXCheckBox layoutX="424.0" layoutY="305.0" prefHeight="17.0" prefWidth="118.0" text="As Admin" textFill="#001d39">
+         <font>
+            <Font name="Poppins Bold" size="10.0" />
+         </font>
+      </JFXCheckBox>
+      <Label layoutX="409.0" layoutY="305.0" text="|" />
+      <Label layoutX="483.0" layoutY="14.0" text="KID'S BOOK STORE" textFill="#001d39">
+         <font>
+            <Font name="Poppins Italic" size="16.0" />
+         </font>
+      </Label>
+      <JFXPasswordField layoutX="207.0" layoutY="251.0" promptText="********" />
+   </children>
 </AnchorPane>
