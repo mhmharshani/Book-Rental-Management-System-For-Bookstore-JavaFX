@@ -32,12 +32,12 @@
             <Image url="@../img/Logo.png" />
          </image>
       </ImageView>
-      <Label layoutX="207.0" layoutY="157.0" text="EMAIL" textFill="#001d39">
+      <Label layoutX="207.0" layoutY="157.0" text="USERNAME" textFill="#001d39">
          <font>
             <Font name="Poppins Regular" size="12.0" />
          </font>
       </Label>
-      <JFXTextField layoutX="207.0" layoutY="183.0" promptText="Enter your email address" unFocusColor="#001d39">
+      <JFXTextField fx:id="txtUserName" layoutX="207.0" layoutY="183.0" promptText="Enter username" unFocusColor="#001d39">
          <font>
             <Font name="Poppins Regular" size="11.0" />
          </font>
@@ -47,17 +47,17 @@
             <Font name="Poppins Regular" size="12.0" />
          </font>
       </Label>
-      <JFXButton layoutX="207.0" layoutY="301.0" prefHeight="25.0" prefWidth="64.0" style="-fx-background-color: #49769F;" text="Login" textFill="#bdd8e9">
+      <JFXButton layoutX="207.0" layoutY="301.0" onAction="#btnLoginOnAction" prefHeight="25.0" prefWidth="64.0" style="-fx-background-color: #49769F;" text="Login" textFill="#bdd8e9">
          <font>
             <Font name="Poppins Regular" size="12.0" />
          </font>
       </JFXButton>
-      <JFXCheckBox layoutX="283.0" layoutY="305.0" prefHeight="18.0" prefWidth="144.0" text="As a Staff Memeber" textFill="#001d39">
+      <JFXCheckBox fx:id="chkStaff" layoutX="283.0" layoutY="305.0" prefHeight="18.0" prefWidth="144.0" text="As a Staff Memeber" textFill="#001d39">
          <font>
             <Font name="System Bold" size="10.0" />
          </font>
       </JFXCheckBox>
-      <JFXCheckBox layoutX="424.0" layoutY="305.0" prefHeight="17.0" prefWidth="118.0" text="As Admin" textFill="#001d39">
+      <JFXCheckBox fx:id="chkAdmin" layoutX="424.0" layoutY="305.0" prefHeight="17.0" prefWidth="118.0" text="As Admin" textFill="#001d39">
          <font>
             <Font name="Poppins Bold" size="10.0" />
          </font>
@@ -68,6 +68,6 @@
             <Font name="Poppins Italic" size="16.0" />
          </font>
       </Label>
-      <JFXPasswordField layoutX="207.0" layoutY="251.0" promptText="********" />
+      <JFXPasswordField fx:id="txtPassword" layoutX="207.0" layoutY="251.0" promptText="********" />
    </children>
 </AnchorPane>
