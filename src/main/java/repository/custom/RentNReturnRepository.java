@@ -1,8 +1,13 @@
 package repository.custom;
 
+import model.dto.Payment;
 import model.dto.RentNReturn;
 import repository.CrudRepository;
+import repository.SuperRepository;
 
-public interface RentNReturnRepository extends CrudRepository<RentNReturn,String> {
+import java.sql.SQLException;
 
+public interface RentNReturnRepository extends SuperRepository {
+
+    boolean addRent(RentNReturn rent, Payment payment) throws SQLException;
 }

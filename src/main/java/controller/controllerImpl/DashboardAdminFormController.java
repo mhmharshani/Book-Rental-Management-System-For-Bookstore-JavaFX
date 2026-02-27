@@ -1,11 +1,17 @@
-package controller;
+package controller.controllerImpl;
 
 import com.jfoenix.controls.JFXCheckBox;
+import controller.FormController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.AnchorPane;
 
-public class DashboardAdminFormController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class DashboardAdminFormController implements Initializable, FormController {
 
     @FXML
     private JFXCheckBox RentalReturnReport;
@@ -18,6 +24,7 @@ public class DashboardAdminFormController {
 
     @FXML
     private ComboBox cmbDurationReturn;
+    private AnchorPane paneContainer;
 
     @FXML
     void btnGenerateReportOnAction(ActionEvent event) {
@@ -44,4 +51,12 @@ public class DashboardAdminFormController {
 
     }
 
+    public void setContainer(AnchorPane container) {
+        this.paneContainer = container;
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
 }

@@ -1,19 +1,16 @@
-package model.dto;
+package model.TM;
 
 import lombok.*;
 
-import java.time.LocalDate;
-
 @Setter
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @ToString
-public class RentNReturnDetails {
-
+public class CartTM {
     String rentId;
     String bookId;
+    String title;
     Integer qty;
     Double total;
-    LocalDate returnDate;
 }

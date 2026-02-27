@@ -2,8 +2,11 @@ package repository.custom.impl;
 
 import model.dto.Customer;
 import repository.custom.CustomerRepository;
+import util.CrudUtil;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerRepositoryImpl implements CustomerRepository {
@@ -29,6 +32,21 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public List<Customer> getAll() throws SQLException {
-        return List.of();
+        ResultSet resultSet = CrudUtil.execute("SELECT * FROM Customer");
+        ArrayList<Customer> customerList = new ArrayList<>();
+
+        while(resultSet.next()){
+            customerList.add(
+                    new Customer(
+                            resultSet.getString(1),
+                            resultSet.getString(2),
+                            resultSet.getString(3),
+                            resultSet.getString(4),
+                            null
+                    )
+            );
+
+        }
+        return customerList;
     }
 }

@@ -1,53 +1,54 @@
-package controller;
+package controller.controllerImpl;
 
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import controller.FormController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class BookFormController implements Initializable {
+public class ProfileFormController implements Initializable, FormController {
 
     @FXML
-    private TableColumn colAuthor;
+    private TableColumn colAddress;
 
     @FXML
-    private TableColumn colCategory;
+    private TableColumn colDesignation;
 
     @FXML
-    private TableColumn colRentPrice;
+    private TableColumn colId;
 
     @FXML
-    private TableColumn colStock;
+    private TableColumn colName;
 
     @FXML
-    private TableColumn colTitle;
+    private TableView tblUser;
 
     @FXML
-    private TableView tblBook;
+    private JFXTextField txtAddress;
 
     @FXML
-    private JFXTextField txtAuthor;
+    private JFXTextField txtDesignation;
 
     @FXML
-    private JFXTextField txtCategory;
+    private JFXTextField txtId;
 
     @FXML
-    private JFXTextField txtRentPrice;
+    private JFXTextField txtName;
+
+    @FXML
+    private JFXPasswordField txtPassword;
 
     @FXML
     private TextField txtSearch;
-
-    @FXML
-    private JFXTextField txtStock;
-
-    @FXML
-    private JFXTextField txtTitle;
+    private AnchorPane paneContainer;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -56,6 +57,11 @@ public class BookFormController implements Initializable {
 
     @FXML
     void btnAddOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btnChangePasswordOnAction(ActionEvent event) {
 
     }
 
@@ -78,4 +84,9 @@ public class BookFormController implements Initializable {
     void btnUpdateOnAction(ActionEvent event) {
 
     }
+
+    public void setContainer(AnchorPane container) {
+        this.paneContainer = container;
+    }
+
 }

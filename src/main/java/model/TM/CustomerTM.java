@@ -1,6 +1,7 @@
-package model.dto;
+package model.TM;
 
 import lombok.*;
+import model.dto.Kid;
 
 import java.util.List;
 
@@ -9,10 +10,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Customer {
+public class CustomerTM {
     String id;
     String name;
     String phoneNumber;
     String address;
-    List<Kid> kidsList;
 }

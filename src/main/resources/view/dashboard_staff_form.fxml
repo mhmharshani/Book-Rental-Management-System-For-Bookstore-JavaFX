@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -11,166 +12,160 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="356.0" prefWidth="640.0" style="-fx-background-color: #BDD8E9;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashboardStaffFormController">
+<AnchorPane prefHeight="356.0" prefWidth="640.0" style="-fx-background-color: #BDD8E9;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.controllerImpl.DashboardStaffFormController">
    <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#edf4f6" height="22.0" layoutX="397.0" layoutY="73.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="54.0" />
       <Label layoutX="14.0" layoutY="6.0" text="Dashboard - staff" textFill="#001d39">
          <font>
             <Font name="Poppins SemiBold" size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="txtSearchCustomerRent" layoutX="87.0" layoutY="76.0" prefHeight="25.0" prefWidth="156.0" promptText="Search customer by phone" style="-fx-background-color: #EDF4F6;" />
-      <JFXButton accessibleRole="IMAGE_VIEW" ellipsisString="" layoutX="278.0" layoutY="76.0" onAction="#btnAddCustomerOnAction" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #49769F;" textFill="#bdd8e9">
-         <font>
-            <Font name="Poppins Regular" size="12.0" />
-         </font>
-      </JFXButton>
-      <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="279.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/icon/icon_add_user.png" />
-         </image>
-      </ImageView>
-      <Label layoutX="14.0" layoutY="41.0" text="RENTAL AND RETURN TRANSACTION" textFill="#001d39">
+      <Label layoutX="14.0" layoutY="41.0" text="RENTAL TRANSACTION" textFill="#001d39">
          <font>
             <Font name="Segoe UI Semibold" size="12.0" />
          </font>
       </Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#edf4f6" height="208.0" layoutX="14.0" layoutY="107.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="289.0" />
-      <JFXButton layoutX="103.0" layoutY="323.0" onAction="#btnPrintRecieptOnAction" prefHeight="25.0" prefWidth="102.0" style="-fx-background-color: #49769F;" text="PRINT RECIEPT" textFill="#bdd8e9">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#edf4f6" height="89.0" layoutX="13.0" layoutY="261.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="614.0" />
+      <JFXButton layoutX="494.0" layoutY="315.0" onAction="#btnConfirmOrderOnAction" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #49769F;" text="CONFIRM ORDER" textFill="#bdd8e9">
          <font>
             <Font name="Poppins Regular" size="12.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="211.0" layoutY="323.0" onAction="#btnRentBooksOnAction" prefHeight="25.0" prefWidth="92.0" style="-fx-background-color: #49769F;" text="RENT BOOKS" textFill="#bdd8e9">
+      <Label layoutX="527.0" layoutY="269.0" text="RENT ID : " textFill="#001d39">
+         <font>
+            <Font name="Poppins Regular" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblRentId" layoutX="584.0" layoutY="269.0" text="R0003" textFill="#001d39">
+         <font>
+            <Font name="Poppins Regular" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="24.0" layoutY="277.0" text="CUSTOMER ID :" textFill="#001d39">
+         <font>
+            <Font name="Poppins Regular" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtCustId" layoutX="115.0" layoutY="273.0" prefHeight="25.0" prefWidth="109.0" style="-fx-background-color: #BDD8E9;" />
+      <Label layoutX="24.0" layoutY="312.0" text="TOTAL QTY     :" textFill="#001d39">
+         <font>
+            <Font name="Poppins Regular" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtTotalQty" layoutX="115.0" layoutY="308.0" prefHeight="25.0" prefWidth="109.0" style="-fx-background-color: #BDD8E9;" />
+      <Label layoutX="236.0" layoutY="312.0" text="TOTAL RENT   :" textFill="#001d39">
+         <font>
+            <Font name="Poppins Regular" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtTotalRent" layoutX="327.0" layoutY="308.0" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #BDD8E9;" />
+      <JFXButton accessibleRole="IMAGE_VIEW" ellipsisString="" layoutX="279.0" layoutY="103.0" onAction="#btnAddToCartOnAction" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #49769F;" textFill="#bdd8e9">
          <font>
             <Font name="Poppins Regular" size="12.0" />
          </font>
       </JFXButton>
-      <JFXButton accessibleRole="IMAGE_VIEW" ellipsisString="" layoutX="249.0" layoutY="76.0" onAction="#btnSearchCustomerRentOnAction" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #49769F;" textFill="#bdd8e9">
-         <font>
-            <Font name="Poppins Regular" size="12.0" />
-         </font>
-      </JFXButton>
-      <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="250.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/icon/icon_find_user.png" />
-         </image>
-      </ImageView>
-      <Label layoutX="205.0" layoutY="113.0" text="RENT ID : " textFill="#001d39">
-         <font>
-            <Font name="Poppins Regular" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="lblRentId" layoutX="262.0" layoutY="113.0" text="R0001" textFill="#001d39">
-         <font>
-            <Font name="Poppins Regular" size="12.0" />
-         </font>
-      </Label>
-      <Label layoutX="27.0" layoutY="155.0" text="CUSTOMER ID :" textFill="#001d39">
-         <font>
-            <Font name="Poppins Regular" size="12.0" />
-         </font>
-      </Label>
-      <TextField fx:id="txtCustId" layoutX="131.0" layoutY="151.0" style="-fx-background-color: #BDD8E9;" />
-      <Label layoutX="27.0" layoutY="192.0" text="CART ID          :" textFill="#001d39">
-         <font>
-            <Font name="Poppins Regular" size="12.0" />
-         </font>
-      </Label>
-      <TextField fx:id="txtCartId" layoutX="131.0" layoutY="188.0" style="-fx-background-color: #BDD8E9;" />
-      <Label layoutX="27.0" layoutY="228.0" text="TOTAL QTY     :" textFill="#001d39">
-         <font>
-            <Font name="Poppins Regular" size="12.0" />
-         </font>
-      </Label>
-      <TextField fx:id="txtTotalQty" layoutX="131.0" layoutY="224.0" style="-fx-background-color: #BDD8E9;" />
-      <Label layoutX="27.0" layoutY="264.0" text="TOTAL RENT   :" textFill="#001d39">
-         <font>
-            <Font name="Poppins Regular" size="12.0" />
-         </font>
-      </Label>
-      <TextField fx:id="txtTotalRent" layoutX="131.0" layoutY="260.0" style="-fx-background-color: #BDD8E9;" />
-      <TextField fx:id="txtSelectBooks" layoutX="474.0" layoutY="40.0" prefHeight="25.0" prefWidth="121.0" promptText="Select books here" style="-fx-background-color: #EDF4F6;" />
-      <JFXButton accessibleRole="IMAGE_VIEW" ellipsisString="" layoutX="602.0" layoutY="40.0" onAction="#btnAddToCartOnAction" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #49769F;" textFill="#bdd8e9">
-         <font>
-            <Font name="Poppins Regular" size="12.0" />
-         </font>
-      </JFXButton>
-      <ImageView fitHeight="23.0" fitWidth="22.0" layoutX="604.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="23.0" fitWidth="22.0" layoutX="281.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/icon/icon_add_cart.png" />
          </image>
       </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#edf4f6" height="25.0" layoutX="518.0" layoutY="71.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="109.0" />
-      <JFXButton layoutX="392.0" layoutY="323.0" onAction="#btnCalculateFinesOnAction" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #49769F;" text="CALCULATE FINES" textFill="#bdd8e9">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#edf4f6" height="22.0" layoutX="115.0" layoutY="69.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="54.0" />
+      <JFXButton layoutX="518.0" layoutY="229.0" onAction="#btnReturnBooksOnAction" prefHeight="25.0" prefWidth="109.0" style="-fx-background-color: #49769F;" text="RETURN BOOKS" textFill="#bdd8e9">
          <font>
             <Font name="Poppins Regular" size="12.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="518.0" layoutY="323.0" onAction="#btnReturnBooksOnAction" prefHeight="25.0" prefWidth="109.0" style="-fx-background-color: #49769F;" text="RETURN BOOKS" textFill="#bdd8e9">
-         <font>
-            <Font name="Poppins Regular" size="12.0" />
-         </font>
-      </JFXButton>
-      <Label layoutX="522.0" layoutY="75.0" text="CART ID : " textFill="#001d39">
+      <Label fx:id="lblCartId" layoutX="120.0" layoutY="72.0" text="CT0001" textFill="#001d39">
          <font>
             <Font name="Poppins Regular" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="lblCartId" layoutX="579.0" layoutY="75.0" text="CT0001" textFill="#001d39">
-         <font>
-            <Font name="Poppins Regular" size="12.0" />
-         </font>
-      </Label>
-      <Label layoutX="338.0" layoutY="42.0" prefHeight="17.0" prefWidth="121.0" text="CART LIST ITEMS" textFill="#001d39">
+      <Label layoutX="15.0" layoutY="73.0" prefHeight="17.0" prefWidth="95.0" text="CART LIST ITEMS" textFill="#001d39">
          <font>
             <Font name="Segoe UI Semibold" size="12.0" />
          </font>
       </Label>
-      <JFXButton accessibleRole="IMAGE_VIEW" ellipsisString="" layoutX="602.0" layoutY="193.0" onAction="#btnSearchCustomerReturnOnAction" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #49769F;" textFill="#bdd8e9">
+      <JFXButton accessibleRole="IMAGE_VIEW" ellipsisString="" layoutX="601.0" layoutY="105.0" onAction="#btnSearchCustomerReturnOnAction" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #49769F;" textFill="#bdd8e9">
          <font>
             <Font name="Poppins Regular" size="12.0" />
          </font>
       </JFXButton>
-      <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="603.0" layoutY="194.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="602.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/icon/icon_find_user.png" />
          </image>
       </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#edf4f6" height="56.0" layoutX="338.0" layoutY="224.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="289.0" />
-      <Label layoutX="508.0" layoutY="227.0" text="RETURN ID : " textFill="#001d39">
+      <Label layoutX="331.0" layoutY="75.0" text="RETURN ID : " textFill="#001d39">
          <font>
             <Font name="Poppins Regular" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="lblReturnId" layoutX="579.0" layoutY="227.0" text="RN0001" textFill="#001d39">
+      <Label fx:id="lblReturnId" layoutX="402.0" layoutY="75.0" text="RN0001" textFill="#001d39">
          <font>
             <Font name="Poppins Regular" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="338.0" layoutY="176.0" prefHeight="17.0" prefWidth="121.0" text="RETURN BOOKS" textFill="#001d39">
+      <Label layoutX="332.0" layoutY="43.0" prefHeight="17.0" prefWidth="121.0" text="RETURN BOOKS" textFill="#001d39">
          <font>
             <Font name="Segoe UI Semibold" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="338.0" layoutY="289.0" text="OVERDUE DAYS :" textFill="#001d39">
+      <Label layoutX="385.0" layoutY="233.0" text="TOTAL FINES :" textFill="#001d39">
          <font>
             <Font name="Poppins Regular" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="503.0" layoutY="289.0" text="TOTAL FINES :" textFill="#001d39">
-         <font>
-            <Font name="Poppins Regular" size="12.0" />
-         </font>
-      </Label>
-      <TextField fx:id="txtSearchCustomerReturn" layoutX="440.0" layoutY="193.0" prefHeight="25.0" prefWidth="156.0" promptText="Search customer by phone" style="-fx-background-color: #EDF4F6;" />
-      <TableView fx:id="tblCart" layoutX="340.0" layoutY="101.0" prefHeight="70.0" prefWidth="289.0" stylesheets="@../css/style.css">
+      <TextField fx:id="txtSearchCustomerReturn" layoutX="468.0" layoutY="105.0" prefHeight="25.0" prefWidth="127.0" promptText="Search by phone no" style="-fx-background-color: #EDF4F6;" />
+      <TableView fx:id="tblCart" layoutX="12.0" layoutY="132.0" prefHeight="124.0" prefWidth="296.0" stylesheets="@../css/style.css">
         <columns>
-          <TableColumn fx:id="colBookId" prefWidth="75.0" text="Book ID" />
-          <TableColumn fx:id="colQty" prefWidth="95.0" text="Qty" />
-            <TableColumn fx:id="colTotalRent" prefWidth="118.0" text="Total Rent" />
+          <TableColumn fx:id="colBookId" prefWidth="60.0" text="Book ID" />
+            <TableColumn fx:id="colTitle" prefWidth="115.0" text="Title" />
+          <TableColumn fx:id="colQty" prefWidth="49.0" text="Qty" />
+            <TableColumn fx:id="colTotalRent" prefWidth="71.0" text="Total Rent" />
         </columns>
       </TableView>
-      <TextField fx:id="txtOverdueDays" layoutX="441.0" layoutY="286.0" prefHeight="25.0" prefWidth="56.0" style="-fx-background-color: #EDF4F6;" />
-      <TextField fx:id="txtTotalFines" layoutX="586.0" layoutY="285.0" prefHeight="25.0" prefWidth="43.0" style="-fx-background-color: #EDF4F6;" />
+      <TextField fx:id="txtTotalFines" layoutX="468.0" layoutY="229.0" prefHeight="25.0" prefWidth="43.0" style="-fx-background-color: #EDF4F6;" />
+      <ComboBox fx:id="cmbBookId" layoutX="108.0" layoutY="103.0" onAction="#cmbBookIdOnAction" prefHeight="25.0" prefWidth="121.0" promptText="Select Book ID" style="-fx-background-color: #EDF4F6;" />
+      <TextField fx:id="txtQty" layoutX="237.0" layoutY="103.0" prefHeight="25.0" prefWidth="34.0" promptText="Qty" style="-fx-background-color: #EDF4F6;" />
+      <TextField fx:id="txtSearchCustomerRent" layoutX="237.0" layoutY="273.0" prefHeight="25.0" prefWidth="121.0" promptText="Search by phone no" style="-fx-background-color: #BDD8E9;" />
+      <JFXButton accessibleRole="IMAGE_VIEW" ellipsisString="" layoutX="391.0" layoutY="273.0" onAction="#btnAddCustomerOnAction" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #49769F;" textFill="#bdd8e9">
+         <font>
+            <Font name="Poppins Regular" size="12.0" />
+         </font>
+      </JFXButton>
+      <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="392.0" layoutY="275.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/icon/icon_add_user.png" />
+         </image>
+      </ImageView>
+      <JFXButton accessibleRole="IMAGE_VIEW" ellipsisString="" layoutX="362.0" layoutY="273.0" onAction="#btnSearchCustomerRentOnAction" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #49769F;" textFill="#bdd8e9">
+         <font>
+            <Font name="Poppins Regular" size="12.0" />
+         </font>
+      </JFXButton>
+      <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="363.0" layoutY="275.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/icon/icon_find_user.png" />
+         </image>
+      </ImageView>
+      <TableView fx:id="tblCart1" layoutX="330.0" layoutY="133.0" prefHeight="89.0" prefWidth="296.0" stylesheets="@../css/style.css">
+         <columns>
+            <TableColumn fx:id="colBookIdR" prefWidth="53.0" text="Book ID" />
+            <TableColumn fx:id="colQtyR" prefWidth="42.0" text="Qty" />
+            <TableColumn fx:id="colDueDateR" prefWidth="67.0" text="Due Date" />
+            <TableColumn fx:id="colOverdueDaysR" prefWidth="83.0" text="Overdue Days" />
+            <TableColumn fx:id="colFinesR" prefWidth="50.0" text="Fines" />
+         </columns>
+      </TableView>
+      <Label fx:id="lblDate" layoutX="520.0" layoutY="9.0" text="2026-02.26" textFill="#001d39">
+         <font>
+            <Font name="Poppins Regular" size="10.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblTime" layoutX="584.0" layoutY="9.0" text="10:25:02" textFill="#001d39">
+         <font>
+            <Font name="Poppins Regular" size="10.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

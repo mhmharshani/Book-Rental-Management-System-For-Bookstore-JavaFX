@@ -1,5 +1,6 @@
 package service;
 
+import service.custom.impl.AuthorServiceImpl;
 import service.custom.impl.BookServiceImpl;
 import service.custom.impl.CustomerServiceImpl;
 import service.custom.impl.RentNReturnServiceImpl;
@@ -24,6 +25,7 @@ public class ServiceFactory {
             case CUSTOMER : return (T) new CustomerServiceImpl();
             case BOOK : return (T) new BookServiceImpl();
             case RENTNRETURN : return (T) new RentNReturnServiceImpl();
+            case AUTHOR: return (T) new AuthorServiceImpl();
         }
         return null;
     }

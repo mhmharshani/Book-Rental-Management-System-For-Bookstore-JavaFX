@@ -1,10 +1,7 @@
 package repository;
 
-import repository.custom.impl.BookRepositoryImpl;
-import repository.custom.impl.RentNReturnRepositoryImpl;
+import repository.custom.impl.*;
 import util.RepositoryType;
-
-import repository.custom.impl.CustomerRepositoryImpl;
 
 public class RepositoryFactory {
     private static RepositoryFactory instance;
@@ -20,6 +17,9 @@ public class RepositoryFactory {
             case CUSTOMER: return (T) new CustomerRepositoryImpl();
             case BOOK: return (T) new BookRepositoryImpl();
             case RENTNRETURN: return (T) new RentNReturnRepositoryImpl();
+            case AUTHOR: return (T) new AuthorRepositoryImpl();
+            case RENTNRETURNDETAILS: return (T) new RentNReturnDetailsRepositoryImpl();
+            case PAYMENT: return (T) new PaymentRepositoryImpl();
         }
         return null;
     }

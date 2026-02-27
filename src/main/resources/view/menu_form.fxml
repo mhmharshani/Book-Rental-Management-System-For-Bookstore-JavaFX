@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="416.0" prefWidth="640.0" style="-fx-background-color: #BDD8E9;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MenuFormController">
+<AnchorPane prefHeight="416.0" prefWidth="640.0" style="-fx-background-color: #BDD8E9;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.controllerImpl.MenuFormController">
    <children>
-      <JFXButton accessibleRole="IMAGE_VIEW" ellipsisString="" layoutX="13.0" layoutY="18.0" onAction="#btnProfileOnAction" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #BDD8E9;" textFill="#bdd8e9">
+      <JFXButton accessibleRole="IMAGE_VIEW" ellipsisString="" layoutX="6.0" layoutY="18.0" onAction="#btnProfileOnAction" prefHeight="17.0" prefWidth="39.0" style="-fx-background-color: #BDD8E9;" textFill="#bdd8e9">
          <font>
             <Font name="Poppins Regular" size="12.0" />
          </font>

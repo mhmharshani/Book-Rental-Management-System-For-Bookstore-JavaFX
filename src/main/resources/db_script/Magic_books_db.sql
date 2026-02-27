@@ -13,7 +13,7 @@ CREATE TABLE UserCredentials (
 	username VARCHAR(50),
 	password VARCHAR(50),
     user_id VARCHAR(8),
-    CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES User(user_id)
+    CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE UserInfo (
@@ -22,7 +22,7 @@ CREATE TABLE UserInfo (
 	phone_number VARCHAR(15),
     address VARCHAR(250),
     user_id VARCHAR(8),
-    CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES User(user_id)
+    CONSTRAINT fk_user_id_info FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Roles (
@@ -32,12 +32,14 @@ CREATE TABLE Roles (
 
 CREATE TABLE UserRole (
 	user_role_id VARCHAR(8) PRIMARY KEY,
-	is_last_login BOOLEAN,
 	user_id VARCHAR(8),
     role_id VARCHAR(8),
-    CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES User(user_id),
-	CONSTRAINT fk_role_id FOREIGN KEY (role_id) REFERENCES Roles(role_id)
+    is_last_login BOOLEAN,
+    CONSTRAINT fk_user_id_userrole FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT fk_role_id FOREIGN KEY (role_id) REFERENCES Roles(role_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+DROP TABLE UserRole;
 
 CREATE TABLE Customer (
 	customer_id VARCHAR(8) PRIMARY KEY,
@@ -46,12 +48,14 @@ CREATE TABLE Customer (
     address VARCHAR(250)
 );
 
+SELECT * FROM Customer;
+
 CREATE TABLE Kids (
 	kid_id VARCHAR(8) PRIMARY KEY,
 	name VARCHAR(50),
 	dob DATE,
     customer_id VARCHAR(8),
-    CONSTRAINT fk_cust_id FOREIGN KEY (customer_id) REFERENCES Customer(customer_id)
+    CONSTRAINT fk_cust_id FOREIGN KEY (customer_id) REFERENCES Customer(customer_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE BookRentalReturn (
@@ -61,19 +65,12 @@ CREATE TABLE BookRentalReturn (
     due_date DATE,
     is_all_returned BOOLEAN,
     customer_id VARCHAR(8),
-    CONSTRAINT fk_cust_id FOREIGN KEY (customer_id) REFERENCES Customer(customer_id)
+    user_id VARCHAR(8),
+    CONSTRAINT fk_cust_id_rent FOREIGN KEY (customer_id) REFERENCES Customer(customer_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT fk_user_id_rent FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE RentDetails (
-	id VARCHAR(8) PRIMARY KEY,
-	rent_id VARCHAR(8),
-	book_id VARCHAR(8),
-    qty INT(6),
-    total DECIMAL(5,2),
-    return_date DATE,
-    CONSTRAINT fk_rent_id FOREIGN KEY (rent_id) REFERENCES BookRentalReturn(rent_id),
-	CONSTRAINT fk_book_id FOREIGN KEY (book_id) REFERENCES Book(book_id)
-);
+-- DROP TABLE BookRentalReturn;
 
 CREATE TABLE Author (
 	author_id VARCHAR(8) PRIMARY KEY,
@@ -86,18 +83,35 @@ CREATE TABLE Book (
 	title VARCHAR(100),
     category VARCHAR(50),
     rent_price Decimal(6,2),
-    stock INT(5),
+    stock INT,
 	author_id VARCHAR(8),
-    CONSTRAINT fk_author_id FOREIGN KEY (author_id) REFERENCES Author(author_id)
+    CONSTRAINT fk_author_id FOREIGN KEY (author_id) REFERENCES Author(author_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+-- DROP TABLE book;
 
 CREATE TABLE BookDetails (
 	book_details_id VARCHAR(8) PRIMARY KEY,
 	author_id VARCHAR(8),
 	ISBN VARCHAR(8),
-    CONSTRAINT fk_author_id FOREIGN KEY (author_id) REFERENCES Author(author_id),
-	CONSTRAINT fk_book_id FOREIGN KEY (ISBN) REFERENCES Book(ISBN)
+    CONSTRAINT fk_author_id_details FOREIGN KEY (author_id) REFERENCES Author(author_id) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT fk_book_id FOREIGN KEY (ISBN) REFERENCES Book(ISBN) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+CREATE TABLE RentDetails (
+	id VARCHAR(8) PRIMARY KEY,
+	rent_id VARCHAR(8),
+	ISBN VARCHAR(8),
+    qty INT,
+    total DECIMAL(5,2),
+    return_date DATE,
+    CONSTRAINT fk_rent_id_details FOREIGN KEY (rent_id) REFERENCES BookRentalReturn(rent_id) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT fk_book_id_details FOREIGN KEY (ISBN) REFERENCES Book(ISBN) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- DROP TABLE RentDetails;
+
+-- DROP TABLE RentDetails;
 
 CREATE TABLE Payment (
 	ref_id VARCHAR(8) PRIMARY KEY,
@@ -105,13 +119,47 @@ CREATE TABLE Payment (
 	payment_mode VARCHAR(50),
     bill_amount DECIMAL(5,2),
     status VARCHAR(30),
-    CONSTRAINT fk_rent_id FOREIGN KEY (rent_id) REFERENCES BookRentalReturn(rent_id)
+    CONSTRAINT fk_rent_id FOREIGN KEY (rent_id) REFERENCES BookRentalReturn(rent_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+-- DROP TABLE Payment;
+
 INSERT INTO Roles VALUES
-	(1, 'Admin'),
-	(2, 'Staff');
+	('1', 'Admin'),
+	('2', 'Staff');
 
+INSERT INTO User VALUES
+	('U001','2023-01-04',true),
+	('U002','2023-02-24',true);
+    
+INSERT INTO UserRole VALUES
+	('UR001','U001','1',true),
+	('UR002','U001','2',false),
+    ('UR003','U002','2',true);
 
+INSERT INTO UserCredentials VALUES
+	('UC001','U001','123','U001'),
+	('UC002','U002','321','U002');
 
+INSERT INTO UserInfo VALUES
+	('UI001','Saman','0752683710','Panadura','U001'),
+	('UI002','Rukshi','0775031810','Colombo','U002');
+
+SELECT * FROM UserCredentials;
+
+INSERT INTO Customer VALUES
+	('C0001','Jayani','0713456213','Kalutara'),
+	('C0002','Mahesh','0774590888','Kelaniya');
+
+INSERT INTO Author VALUES
+	('A0001','Eric Carle','United States'),
+	('A0002','Sam McBratney','United Kingdom'),
+    ('A0003','Bill Martin Jr.','United States');
+ 
+ INSERT INTO Book VALUES
+	('0-399-22690-7 (US)','The Very Hungry Catepillar','Children',150.00,10,'A0001'),
+	('978-0805087185','Brown Bear Brown Bear What Do You See?','Children',150.00,15,'A0003'),
+    ('978-0763642648','Guess How much I love you','Children',150.00,5,'A0002');
+    
+Select * from book;
 

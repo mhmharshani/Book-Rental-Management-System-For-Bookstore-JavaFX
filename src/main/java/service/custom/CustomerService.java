@@ -1,11 +1,12 @@
 package service.custom;
 
 import model.dto.Customer;
+import service.SuperService;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public interface CustomerService {
+public interface CustomerService extends SuperService {
 
     boolean addCustomer(Customer customer) throws SQLException;
 
