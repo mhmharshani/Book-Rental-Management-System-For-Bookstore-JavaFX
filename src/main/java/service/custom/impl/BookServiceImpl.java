@@ -19,17 +19,17 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public boolean addBook(Book book) throws SQLException {
-        return false;
+        return bookRepositoryType.create(book);
     }
 
     @Override
-    public boolean updateBook(Customer customer) throws SQLException {
-        return false;
+    public boolean updateBook(Book book) throws SQLException {
+        return bookRepositoryType.update(book);
     }
 
     @Override
     public boolean deleteBook(String id) throws SQLException {
-        return false;
+        return bookRepositoryType.deleteById(id);
     }
 
     @Override

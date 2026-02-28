@@ -15,17 +15,31 @@ public class BookRepositoryImpl implements BookRepository {
 
     @Override
     public boolean create(Book book) throws SQLException {
-        return false;
+        return CrudUtil.execute("INSERT INTO book VALUES (?,?,?,?,?,?)",
+                book.getId(),
+                book.getTitle(),
+                book.getCategory(),
+                book.getRentPrice(),
+                book.getStock(),
+                book.getAuthorId()
+        );
     }
 
     @Override
     public boolean update(Book book) throws SQLException {
-        return false;
+        return CrudUtil.execute("UPDATE book SET title=?, category=?, rent_price=?, stock=?, author_id=? WHERE ISBN= ? ",
+                book.getTitle(),
+                book.getCategory(),
+                book.getRentPrice(),
+                book.getStock(),
+                book.getAuthorId(),
+                book.getId()
+        );
     }
 
     @Override
-    public boolean deleteById(String s) throws SQLException {
-        return false;
+    public boolean deleteById(String id) throws SQLException {
+        return CrudUtil.execute("DELETE FROM book WHERE ISBN = ?",id);
     }
 
     @Override

@@ -7,10 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import model.TM.BookTM;
@@ -22,6 +19,7 @@ import util.ServiceType;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -97,12 +95,40 @@ public class BookFormController implements Initializable, FormController {
 
     @FXML
     void btnAddOnAction(ActionEvent event) {
+        String id = txtId.getText();
+        String title = txtTitle.getText();
+        String authorId = cmbAuthorId.getValue().toString();
+        String category = txtCategory.getText();
+        Double rentPrice = Double.parseDouble(txtRentPrice.getText());
+        Integer stock = Integer.parseInt(txtStock.getText());
 
+        Book book = new Book(id,title,authorId,category,rentPrice,stock);
+
+        System.out.println(book);
+        try {
+            if (bookServiceType.addBook(book)) {
+                new Alert(Alert.AlertType.INFORMATION, "Book Added").show();
+                loadTable();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Book Not Added").show();
+            }
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
-
+        try{
+            if(bookServiceType.deleteBook(txtId.getText())){
+                new Alert(Alert.AlertType.INFORMATION,"Book Deleted!").show();
+                loadTable();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Book NOT Deleted!").show();
+            }
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -112,12 +138,49 @@ public class BookFormController implements Initializable, FormController {
 
     @FXML
     void btnSearchOnAction(ActionEvent event) {
+        try{
+            Book book = bookServiceType.searchBookById(txtSearch.getText());
+            if(book !=null){
+                setTextToValues(book);
+            }
+            else{
+                new Alert(Alert.AlertType.INFORMATION,"No book found.").show();
+
+                txtId.setText("");
+                txtTitle.setText("");
+                cmbAuthorId.setValue(null);
+                txtCategory.setText("");
+                txtRentPrice.setText("");
+                txtStock.setText("");
+            }
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
 
     }
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
+        try{
+            String id = txtId.getText();
+            String title = txtTitle.getText();
+            String authorId = cmbAuthorId.getValue().toString();
+            String category = txtCategory.getText();
+            Double rentPrice = Double.parseDouble(txtRentPrice.getText());
+            Integer stock = Integer.parseInt(txtStock.getText());
 
+            Book book = new Book(id,title,authorId,category,rentPrice,stock);
+
+            if(bookServiceType.updateBook(book)){
+                new Alert(Alert.AlertType.INFORMATION,"Book Updated").show();
+                loadTable();
+            }
+            else{
+                new Alert(Alert.AlertType.ERROR,"Book Not Updated").show();
+            }
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 
     public void btnAddAuthorOnAction(ActionEvent actionEvent) {
@@ -172,6 +235,17 @@ public class BookFormController implements Initializable, FormController {
             txtCategory.setText(bookTm.getCategory());
             txtRentPrice.setText(bookTm.getRentPrice().toString());
             txtStock.setText(bookTm.getStock().toString());
+        }
+    }
+
+    private void setTextToValues(Book book) {
+        if(book !=null){
+            txtId.setText(book.getId());
+            txtTitle.setText(book.getTitle());
+            cmbAuthorId.setValue(book.getAuthorId());
+            txtCategory.setText(book.getCategory());
+            txtRentPrice.setText(book.getRentPrice().toString());
+            txtStock.setText(book.getStock().toString());
         }
     }
 

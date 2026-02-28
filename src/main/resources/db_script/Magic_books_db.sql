@@ -99,7 +99,7 @@ CREATE TABLE BookDetails (
 	CONSTRAINT fk_book_id FOREIGN KEY (ISBN) REFERENCES Book(ISBN) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-Alter Table BookDetails Modify ISBN VARCHAR(20);
+-- Alter Table BookDetails Modify ISBN VARCHAR(20);
 
 CREATE TABLE RentDetails (
 	rent_id VARCHAR(8),
@@ -114,7 +114,7 @@ CREATE TABLE RentDetails (
 
 Select * From rentDetails;
  
-DROP TABLE RentDetails;
+-- DROP TABLE RentDetails;
 
 CREATE TABLE Payment (
 	ref_id VARCHAR(8) PRIMARY KEY,
