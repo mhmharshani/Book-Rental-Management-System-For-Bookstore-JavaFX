@@ -8,5 +8,5 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface BookRepository extends CrudRepository<Book,String> {
-    boolean updateStock(List<RentNReturnDetails> rentNReturnDetailsList) throws SQLException;
+    boolean updateStock(List<RentNReturnDetails> rentNReturnDetailsList, int plusMinusValue) throws SQLException;
 }

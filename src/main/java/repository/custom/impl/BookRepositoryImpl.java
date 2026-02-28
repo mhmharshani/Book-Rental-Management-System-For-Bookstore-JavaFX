@@ -73,9 +73,9 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public boolean updateStock(List<RentNReturnDetails> rentNReturnDetailsList) throws SQLException {
+    public boolean updateStock(List<RentNReturnDetails> rentNReturnDetailsList,int plusMinusValue) throws SQLException {
         for(RentNReturnDetails rentDetails : rentNReturnDetailsList){
-            boolean isUpdateStock = updateStock(rentDetails);
+            boolean isUpdateStock = updateStock(rentDetails,plusMinusValue);
             if(!isUpdateStock){
                 return false;
             }
@@ -83,9 +83,11 @@ public class BookRepositoryImpl implements BookRepository {
         return true;
     }
 
-    public boolean updateStock(RentNReturnDetails rentNReturnDetails) throws SQLException{
+    public boolean updateStock(RentNReturnDetails rentNReturnDetails, int plusMinusValue) throws SQLException{
         System.out.println("In update stock");
-        return CrudUtil.execute("UPDATE book SET stock = stock-? WHERE ISBN = ?",rentNReturnDetails.getQty(),rentNReturnDetails.getBookId());
+        return CrudUtil.execute("UPDATE book SET stock = stock-? WHERE ISBN = ?",(plusMinusValue)*rentNReturnDetails.getQty(),rentNReturnDetails.getBookId());
     }
+
+
 
 }

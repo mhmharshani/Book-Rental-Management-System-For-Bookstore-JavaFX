@@ -15,22 +15,22 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public boolean addCustomer(Customer customer) throws SQLException {
-        return false;
+        return customerRepositoryType.create(customer);
     }
 
     @Override
     public boolean updateCustomer(Customer customer) throws SQLException {
-        return false;
+        return customerRepositoryType.update(customer);
     }
 
     @Override
     public boolean deleteCustomer(String id) throws SQLException {
-        return false;
+        return customerRepositoryType.deleteById(id);
     }
 
     @Override
     public Customer searchCustomerById(String id) throws SQLException {
-        return null;
+        return customerRepositoryType.getById(id);
     }
 
     @Override

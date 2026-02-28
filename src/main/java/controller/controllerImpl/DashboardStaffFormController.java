@@ -152,6 +152,13 @@ public class DashboardStaffFormController implements Initializable, FormControll
         });
 
         txtQty.setText("1");
+
+        try {
+            String nextRentId = rentNReturnServiceType.getNextRentId();
+            lblRentId.setText(nextRentId);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -259,7 +266,7 @@ public class DashboardStaffFormController implements Initializable, FormControll
             System.out.println("notReturnedList : "+notReturnedRentList);
             notReturnedRentList.forEach(rentNReturn -> {
                 try {
-                    Boolean isUpdated = rentNReturnServiceType.updateReturnStatus(rentNReturn.getId());
+                    Boolean isUpdated = rentNReturnServiceType.updateReturnStatus(rentNReturn.getId(),rentNReturn.getRentDetailsList());
                     if(isUpdated){
                         new Alert(Alert.AlertType.INFORMATION,"Return dates updated").show();
                     }

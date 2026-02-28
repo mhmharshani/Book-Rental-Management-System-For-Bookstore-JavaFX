@@ -12,24 +12,34 @@ import java.util.List;
 public class CustomerRepositoryImpl implements CustomerRepository {
     @Override
     public boolean create(Customer customer) throws SQLException {
-        return false;
+        return CrudUtil.execute("INSERT INTO customer VALUES (?,?,?,?)",
+                customer.getId(),
+                customer.getName(),
+                customer.getPhoneNumber(),
+                customer.getAddress()
+        );
     }
 
     @Override
     public boolean update(Customer customer) throws SQLException {
-        return false;
+        return CrudUtil.execute("UPDATE customer SET name=?, phone_number=?, address=? WHERE customer_id= ? ",
+                customer.getName(),
+                customer.getPhoneNumber(),
+                customer.getAddress(),
+                customer.getId()
+        );
     }
 
     @Override
-    public boolean deleteById(String s) throws SQLException {
-        return false;
+    public boolean deleteById(String id) throws SQLException {
+        return CrudUtil.execute("DELETE FROM customer WHERE customer_id = ?",id);
     }
 
     @Override
     public Customer getById(String id) throws SQLException {
-        ResultSet resultSet = CrudUtil.execute("SELECT * FROM customer WHERE id= ? ",id);
+        ResultSet resultSet = CrudUtil.execute("SELECT * FROM customer WHERE customer_id= ? ",id);
         Boolean isExist = resultSet.next();
-
+        System.out.println("isExist :"+isExist);
         if(isExist){
             Customer customer = new Customer(
                     resultSet.getString(1),

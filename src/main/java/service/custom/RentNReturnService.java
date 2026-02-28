@@ -3,6 +3,7 @@ package service.custom;
 import model.dto.Book;
 import model.dto.Payment;
 import model.dto.RentNReturn;
+import model.dto.RentNReturnDetails;
 import service.SuperService;
 
 import java.sql.SQLException;
@@ -19,5 +20,7 @@ public interface RentNReturnService extends SuperService {
 
     List<RentNReturn> searchRentByCustId(String id) throws SQLException;
 
-    Boolean updateReturnStatus(String id) throws SQLException;
+    Boolean updateReturnStatus(String id, List<RentNReturnDetails> list) throws SQLException;
+
+    String getNextRentId() throws SQLException;
 }

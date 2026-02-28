@@ -170,3 +170,7 @@ Select * from BookRentalReturn;
 
 INSERT INTO RentDetails VALUES
 	('R0001','978-0763642648',1,150.00,null);
+    
+UPDATE RentDetails SET return_date='2026-02-28' WHERE rent_id='R0001';
+
+select * from book;

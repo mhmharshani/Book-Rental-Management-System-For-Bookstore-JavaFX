@@ -2,6 +2,7 @@ package service.custom.impl;
 
 import model.dto.Payment;
 import model.dto.RentNReturn;
+import model.dto.RentNReturnDetails;
 import repository.RepositoryFactory;
 import repository.SuperRepository;
 import repository.custom.BookRepository;
@@ -19,6 +20,7 @@ public class RentNReturnServiceImpl implements RentNReturnService {
     RentNReturnRepository rentNReturnRepositoryType = RepositoryFactory.getInstance().getRepositoryType(RepositoryType.RENTNRETURN);
     PaymentRepository paymentRepositoryType = RepositoryFactory.getInstance().getRepositoryType(RepositoryType.PAYMENT);
     RentNReturnDetailsRepository rentNReturnDetailsRepositoryType = RepositoryFactory.getInstance().getRepositoryType(RepositoryType.RENTNRETURNDETAILS);
+    BookRepository bookRepositoryType = RepositoryFactory.getInstance().getRepositoryType(RepositoryType.BOOK);
 
     @Override
     public boolean addRent(RentNReturn rent,Payment payment) throws SQLException {
@@ -41,7 +43,12 @@ public class RentNReturnServiceImpl implements RentNReturnService {
     }
 
     @Override
-    public Boolean updateReturnStatus(String id) throws SQLException {
-        return (rentNReturnRepositoryType.updateReturnStatus(id)) && (rentNReturnDetailsRepositoryType.updateReturnDate(id));
+    public Boolean updateReturnStatus(String id, List<RentNReturnDetails> list) throws SQLException {
+        return (rentNReturnRepositoryType.updateReturnStatus(id)) && (rentNReturnDetailsRepositoryType.updateReturnDate(id))&&(bookRepositoryType.updateStock(list,(-1)));
+    }
+
+    @Override
+    public String getNextRentId() throws SQLException {
+        return rentNReturnRepositoryType.generateID();
     }
 }

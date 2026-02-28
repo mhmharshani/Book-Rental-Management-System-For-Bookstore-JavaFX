@@ -19,4 +19,6 @@ public interface RentNReturnRepository extends SuperRepository {
     List<RentNReturn> getByCustomerId(String id) throws SQLException;
 
     Boolean updateReturnStatus(String id) throws SQLException;
+
+    public String generateID() throws SQLException;
 }

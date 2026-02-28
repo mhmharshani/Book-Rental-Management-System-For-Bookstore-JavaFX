@@ -96,7 +96,7 @@
             <Font name="Poppins Regular" size="12.0" />
          </font>
       </JFXButton>
-      <TextField fx:id="txtSearch" layoutX="376.0" layoutY="206.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #EDF4F6;" />
+      <TextField fx:id="txtSearch" layoutX="376.0" layoutY="206.0" prefHeight="25.0" prefWidth="149.0" promptText="Search by customer ID" style="-fx-background-color: #EDF4F6;" />
       <ImageView fitHeight="23.0" fitWidth="25.0" layoutX="585.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/icon/icon_refresh.png" />
@@ -107,7 +107,7 @@
             <Font name="Poppins Regular" size="12.0" />
          </font>
       </JFXButton>
-      <ImageView fitHeight="24.0" fitWidth="25.0" layoutX="604.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="17.0" fitWidth="23.0" layoutX="608.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/icon/icon_refresh.png" />
          </image>

@@ -21,6 +21,7 @@ import util.ServiceType;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -88,12 +89,38 @@ public class CustomerFormController implements Initializable,FormController {
 
     @FXML
     void btnAddOnAction(ActionEvent event) {
+        String id = txtId.getText();
+        String name = txtName.getText();
+        String phoneNumber = txtPhoneNo.getText();
+        String address = txtAddress.getText();
 
+        Customer customer = new Customer(id,name,phoneNumber,address,null);
+
+        System.out.println(customer);
+        try {
+            if (customerServiceType.addCustomer(customer)) {
+                new Alert(Alert.AlertType.INFORMATION, "Customer Added").show();
+                loadTable();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Customer Not Added").show();
+            }
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
-
+        try{
+            if(customerServiceType.deleteCustomer(txtId.getText())){
+                new Alert(Alert.AlertType.INFORMATION,"Customer Deleted!").show();
+                loadTable();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Customer NOT Deleted!").show();
+            }
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -103,31 +130,44 @@ public class CustomerFormController implements Initializable,FormController {
 
     @FXML
     void btnSearchOnAction(ActionEvent event) {
-//        try{
-//            Customer customer = customerServiceType.searchCustomerById(txtId.getText());
-//            if(customer !=null){
-//                setTextToValues(customer);
-//            }
-//            else{
-//                new Alert(Alert.AlertType.INFORMATION,"No customer found.").show();
-//
-//                cmbTitle.setValue("");
-//                txtName.setText("");
-//                dateDob.setValue(null);
-//                txtSalary.setText("");
-//                txtAddress.setText("");
-//                txtCity.setText("");
-//                txtProvince.setText("");
-//                txtPostalCode.setText("");
-//            }
-//        } catch (SQLException e){
-//            throw new RuntimeException(e);
-//        }
+        try{
+            Customer customer = customerServiceType.searchCustomerById(txtSearch.getText());
+            if(customer !=null){
+                setTextToValues(customer);
+            }
+            else{
+                new Alert(Alert.AlertType.INFORMATION,"No customer found.").show();
+
+                txtId.setText("");
+                txtName.setText("");
+                txtAddress.setText("");
+                txtPhoneNo.setText("");
+            }
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
+        try{
+            String id = txtId.getText();
+            String name = txtName.getText();
+            String phoneNumber = txtPhoneNo.getText();
+            String address = txtAddress.getText();
 
+            Customer customer = new Customer(id,name,phoneNumber,address,null);
+
+            if(customerServiceType.updateCustomer(customer)){
+                new Alert(Alert.AlertType.INFORMATION,"Customer Updated").show();
+                loadTable();
+            }
+            else{
+                new Alert(Alert.AlertType.ERROR,"Customer Not Updated").show();
+            }
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 
     private void loadTable(){
@@ -158,6 +198,15 @@ public class CustomerFormController implements Initializable,FormController {
             txtName.setText(customerTm.getName());
             txtAddress.setText(customerTm.getAddress());
             txtPhoneNo.setText(customerTm.getPhoneNumber());
+        }
+    }
+
+    private void setTextToValues(Customer customer){
+        if(customer !=null){
+            txtId.setText(customer.getId());
+            txtName.setText(customer.getName());
+            txtAddress.setText(customer.getAddress());
+            txtPhoneNo.setText(customer.getPhoneNumber());
         }
     }
 

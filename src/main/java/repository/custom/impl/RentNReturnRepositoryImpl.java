@@ -49,7 +49,7 @@ public class RentNReturnRepositoryImpl implements RentNReturnRepository {
                 if(isPaymentInsert){
                     boolean isRentDetailsInsert = rentDetailsRepository.insertRentDetails(rent.getRentDetailsList());
                     if(isRentDetailsInsert){
-                        boolean isStockUpdate = bookRepository.updateStock((rent.getRentDetailsList()));
+                        boolean isStockUpdate = bookRepository.updateStock(rent.getRentDetailsList(),1);
                         if(isStockUpdate){
                             connection.commit();
                             System.out.println("commited");
@@ -152,5 +152,21 @@ public class RentNReturnRepositoryImpl implements RentNReturnRepository {
                 true,
                 id
         );
+    }
+
+    @Override
+    public String generateID() throws SQLException {
+        ResultSet resultSet = CrudUtil.execute("SELECT * FROM BookRentalReturn ORDER BY rent_id DESC LIMIT 1");
+
+        if(resultSet.next()){
+            String rentId = resultSet.getString(1);
+            int number = Integer.parseInt(rentId.substring(1));
+            number++;
+            return "R"+String.format("%04d",number);
+        }
+
+        else{
+            return "R0001";
+        }
     }
 }

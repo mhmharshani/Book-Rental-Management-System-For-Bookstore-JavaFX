@@ -107,7 +107,7 @@ public class BookFormController implements Initializable, FormController {
 
     @FXML
     void btnRefreshOnAction(ActionEvent event) {
-
+        loadTable();
     }
 
     @FXML
