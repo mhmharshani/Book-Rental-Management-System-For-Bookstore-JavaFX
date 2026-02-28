@@ -1,18 +1,24 @@
 package repository.custom.impl;
 
 import db.DBConnection;
+import model.dto.Book;
 import model.dto.Payment;
 import model.dto.RentNReturn;
+import model.dto.RentNReturnDetails;
 import repository.RepositoryFactory;
 import repository.custom.BookRepository;
 import repository.custom.PaymentRepository;
 import repository.custom.RentNReturnDetailsRepository;
 import repository.custom.RentNReturnRepository;
+import util.CrudUtil;
 import util.RepositoryType;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RentNReturnRepositoryImpl implements RentNReturnRepository {
@@ -61,5 +67,90 @@ public class RentNReturnRepositoryImpl implements RentNReturnRepository {
         }finally {
             connection.setAutoCommit(true);
         }
+    }
+
+    @Override
+    public List<RentNReturn> getAll() throws SQLException {
+        ResultSet resultSet = CrudUtil.execute("SELECT * FROM BookRentalReturn");
+        ArrayList<RentNReturn> rentNReturnList = new ArrayList<>();
+
+        while(resultSet.next()){
+
+//            java.sql.Array sqlArray = resultSet.getArray(8);
+//            RentNReturnDetails[] detailArray = (RentNReturnDetails[]) sqlArray.getArray();
+//            List<RentNReturnDetails> detailsList = Arrays.asList(detailArray);
+
+            rentNReturnList.add(
+                    new RentNReturn(
+                            resultSet.getString(1),
+                            resultSet.getDate(2).toLocalDate(),
+                            resultSet.getDate(3).toLocalDate(),
+                            resultSet.getDouble(4),
+                            resultSet.getBoolean(5),
+                            resultSet.getString(6),
+                            resultSet.getString(7),
+                            null
+//                            detailsList
+                    )
+            );
+
+        }
+        System.out.println(rentNReturnList);
+        return rentNReturnList;
+    }
+
+    @Override
+    public RentNReturn getById(String id) throws SQLException {
+        ResultSet resultSet = CrudUtil.execute("SELECT * FROM BookRentalReturn WHERE rent_id= ? ",id);
+        Boolean isExist = resultSet.next();
+
+        if(isExist) {
+            RentNReturn rentNReturn = new RentNReturn(
+                    resultSet.getString(1),
+                    resultSet.getDate(2).toLocalDate(),
+                    resultSet.getDate(3).toLocalDate(),
+                    resultSet.getDouble(4),
+                    resultSet.getBoolean(5),
+                    resultSet.getString(6),
+                    resultSet.getString(7),
+                    null
+            );
+
+            System.out.println(rentNReturn);
+
+            return rentNReturn;
+        }
+        return null;
+    }
+
+    @Override
+    public List<RentNReturn> getByCustomerId(String id) throws SQLException {
+        ResultSet resultSet = CrudUtil.execute("SELECT * FROM BookRentalReturn WHERE customer_id= ? AND is_all_returned = false",id);
+
+        ArrayList<RentNReturn> rentNReturnList = new ArrayList<>();
+
+        while(resultSet.next()){
+            rentNReturnList.add(new RentNReturn(
+                    resultSet.getString(1),
+                    resultSet.getDate(2).toLocalDate(),
+                    resultSet.getDate(3).toLocalDate(),
+                    resultSet.getDouble(4),
+                    resultSet.getBoolean(5),
+                    resultSet.getString(6),
+                    resultSet.getString(7),
+                    rentDetailsRepository.searchDetailsByRentId(resultSet.getString(1))
+            ));
+
+        }
+        System.out.println(rentNReturnList);
+        return rentNReturnList;
+    }
+
+    @Override
+    public Boolean updateReturnStatus(String id) throws SQLException {
+        return CrudUtil.execute("UPDATE BookRentalReturn SET is_all_returned=? WHERE rent_id= ? ",
+                true,
+                id
+        );
     }
 }

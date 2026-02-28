@@ -9,20 +9,22 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import model.TM.CartTM;
+import model.TM.CustomerTM;
+import model.TM.ReturnDetailsTM;
 import model.dto.Book;
+import model.dto.Customer;
 import model.dto.RentNReturn;
 import model.dto.RentNReturnDetails;
 import service.ServiceFactory;
+import service.SuperService;
 import service.custom.BookService;
+import service.custom.CustomerService;
+import service.custom.RentNReturnService;
 import util.ServiceType;
 
 import java.io.IOException;
@@ -31,6 +33,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,6 +43,18 @@ public class DashboardStaffFormController implements Initializable, FormControll
 
 
     BookService bookServiceType = ServiceFactory.getInstance().getServiceType(ServiceType.BOOK);
+    CustomerService customerServiceType = ServiceFactory.getInstance().getServiceType(ServiceType.CUSTOMER);
+    RentNReturnService rentNReturnServiceType = ServiceFactory.getInstance().getServiceType(ServiceType.RENTNRETURN);
+
+    @FXML
+    private TableView tblReturn;
+
+    @FXML
+    private TableColumn colRentIdR;
+
+    @FXML
+    private TextField txtSearchISBNReturn;
+
     @FXML
     private Label lblDate;
 
@@ -54,9 +69,6 @@ public class DashboardStaffFormController implements Initializable, FormControll
 
     @FXML
     private TableColumn colBookIdR;
-
-    @FXML
-    private TableColumn colDueDateR;
 
     @FXML
     private TableColumn colFinesR;
@@ -87,9 +99,6 @@ public class DashboardStaffFormController implements Initializable, FormControll
 
     @FXML
     private TableView tblCart;
-
-    @FXML
-    private TableView tblCart1;
 
     @FXML
     private TextField txtCustId;
@@ -124,9 +133,25 @@ public class DashboardStaffFormController implements Initializable, FormControll
         colQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
         colTotalRent.setCellValueFactory(new PropertyValueFactory<>("total"));
 
+        colBookIdR.setCellValueFactory(new PropertyValueFactory<>("bookId"));
+        colRentIdR.setCellValueFactory(new PropertyValueFactory<>("rentId"));
+        colQtyR.setCellValueFactory(new PropertyValueFactory<>("qty"));
+        colOverdueDaysR.setCellValueFactory(new PropertyValueFactory<>("overdueDays"));
+        colFinesR.setCellValueFactory(new PropertyValueFactory<>("fine"));
+
         loadBookIDs();
         loadDateAndTime();
 
+        tblReturn.getSelectionModel().selectedItemProperty().addListener((observableValue,oldValue,newValue) ->{
+
+            System.out.println("Select record new value : "+newValue);
+
+            assert newValue !=null;
+            ReturnDetailsTM returnDetailsTM = (ReturnDetailsTM) newValue;
+            txtSearchISBNReturn.setText(returnDetailsTM.getBookId());
+        });
+
+        txtQty.setText("1");
     }
 
     @FXML
@@ -220,7 +245,31 @@ public class DashboardStaffFormController implements Initializable, FormControll
     }
 
     @FXML
-    void btnReturnBooksOnAction(ActionEvent event) {
+    void btnReturnBookOnAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void btnReturnAllOnAction(ActionEvent event) {
+        try {
+            String phoneNo = txtSearchCustomerReturn.getText();
+            Customer customer = customerServiceType.searchCustomerByPhone(phoneNo);
+            System.out.println("customer "+customer);
+            List<RentNReturn> notReturnedRentList = rentNReturnServiceType.searchRentByCustId(customer.getId());
+            System.out.println("notReturnedList : "+notReturnedRentList);
+            notReturnedRentList.forEach(rentNReturn -> {
+                try {
+                    Boolean isUpdated = rentNReturnServiceType.updateReturnStatus(rentNReturn.getId());
+                    if(isUpdated){
+                        new Alert(Alert.AlertType.INFORMATION,"Return dates updated").show();
+                    }
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -231,12 +280,38 @@ public class DashboardStaffFormController implements Initializable, FormControll
 
     @FXML
     void btnSearchCustomerReturnOnAction(ActionEvent event) {
+        String phoneNo = txtSearchCustomerReturn.getText();
+        String bookId = txtSearchISBNReturn.getText();
 
-    }
+        try {
+            Customer customer = customerServiceType.searchCustomerByPhone(phoneNo);
+            System.out.println("customer "+customer);
+            List<RentNReturn> notReturnedRentList = rentNReturnServiceType.searchRentByCustId(customer.getId());
+            System.out.println("notReturnedList : "+notReturnedRentList);
+            ArrayList<ReturnDetailsTM> returnDetailsTmList = new ArrayList<>();
+            notReturnedRentList.forEach(rentNReturn -> {
+                rentNReturn.getRentDetailsList().forEach(rentNReturnDetails -> {
+                    long overdueDays = (ChronoUnit.DAYS.between(rentNReturn.getDueDate(), LocalDate.now()));
+                    if(overdueDays<0){
+                        overdueDays = 0;
+                    }
 
-    @FXML
-    void cmbBookIdOnAction(ActionEvent event) {
+                    double fines = rentNReturnDetails.getQty() * overdueDays * 10.0;
+                    returnDetailsTmList.add(new ReturnDetailsTM(
+                            rentNReturnDetails.getBookId(),
+                            rentNReturnDetails.getRentId(),
+                            rentNReturnDetails.getQty(),
+                            (int)overdueDays,
+                            fines
+                    ));
+                });
+            });
+            tblReturn.setItems(FXCollections.observableArrayList(returnDetailsTmList));
 
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void loadBookIDs(){

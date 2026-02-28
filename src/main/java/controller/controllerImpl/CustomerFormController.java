@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -102,7 +103,26 @@ public class CustomerFormController implements Initializable,FormController {
 
     @FXML
     void btnSearchOnAction(ActionEvent event) {
-
+//        try{
+//            Customer customer = customerServiceType.searchCustomerById(txtId.getText());
+//            if(customer !=null){
+//                setTextToValues(customer);
+//            }
+//            else{
+//                new Alert(Alert.AlertType.INFORMATION,"No customer found.").show();
+//
+//                cmbTitle.setValue("");
+//                txtName.setText("");
+//                dateDob.setValue(null);
+//                txtSalary.setText("");
+//                txtAddress.setText("");
+//                txtCity.setText("");
+//                txtProvince.setText("");
+//                txtPostalCode.setText("");
+//            }
+//        } catch (SQLException e){
+//            throw new RuntimeException(e);
+//        }
     }
 
     @FXML

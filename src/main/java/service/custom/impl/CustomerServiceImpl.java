@@ -37,4 +37,9 @@ public class CustomerServiceImpl implements CustomerService {
     public List<Customer> getAll() throws SQLException {
         return customerRepositoryType.getAll();
     }
+
+    @Override
+    public Customer searchCustomerByPhone(String phoneNo) throws SQLException {
+        return customerRepositoryType.getByPhoneNo(phoneNo);
+    }
 }

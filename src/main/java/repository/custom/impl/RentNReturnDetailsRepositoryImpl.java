@@ -6,7 +6,10 @@ import repository.custom.RentNReturnDetailsRepository;
 import repository.custom.RentNReturnRepository;
 import util.CrudUtil;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RentNReturnDetailsRepositoryImpl implements RentNReturnDetailsRepository {
@@ -31,6 +34,33 @@ public class RentNReturnDetailsRepositoryImpl implements RentNReturnDetailsRepos
                 rentNReturnDetails.getQty(),
                 rentNReturnDetails.getTotal(),
                 null
+        );
+    }
+
+    @Override
+    public List<RentNReturnDetails> searchDetailsByRentId(String id) throws SQLException {
+        ResultSet resultSet = CrudUtil.execute("SELECT * FROM RentDetails WHERE rent_id= ? ",id);
+        ArrayList<RentNReturnDetails> rentNReturnDetailsList = new ArrayList<>();
+
+        while(resultSet.next()){
+            rentNReturnDetailsList.add(new RentNReturnDetails(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getInt(3),
+                    resultSet.getDouble(4),
+                    (resultSet.getDate(5)==null)?null:resultSet.getDate(5).toLocalDate()
+            ));
+            System.out.println(resultSet.getString(2));
+        }
+        System.out.println(rentNReturnDetailsList);
+        return rentNReturnDetailsList;
+    }
+
+    @Override
+    public boolean updateReturnDate(String id) throws SQLException {
+        return CrudUtil.execute("UPDATE RentDetails SET return_date=? WHERE rent_id= ? ",
+                LocalDate.now(),
+                id
         );
     }
 }

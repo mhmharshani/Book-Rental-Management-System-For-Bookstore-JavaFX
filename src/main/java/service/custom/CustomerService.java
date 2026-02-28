@@ -18,4 +18,5 @@ public interface CustomerService extends SuperService {
 
     List<Customer> getAll() throws SQLException;
 
+    Customer searchCustomerByPhone(String phoneNo) throws SQLException;
 }

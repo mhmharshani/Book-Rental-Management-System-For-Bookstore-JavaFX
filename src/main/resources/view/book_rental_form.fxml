@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -30,16 +31,6 @@
             <Font name="Poppins Regular" size="11.0" />
          </font>
       </JFXTextField>
-      <Label layoutX="193.0" layoutY="114.0" text="CART ID" textFill="#001d39">
-         <font>
-            <Font name="Poppins Regular" size="12.0" />
-         </font>
-      </Label>
-      <JFXTextField fx:id="txtCartId" layoutX="193.0" layoutY="136.0" prefHeight="24.0" prefWidth="179.0" promptText="Enter book category" text="Enter cart ID" unFocusColor="#001d39">
-         <font>
-            <Font name="Poppins Regular" size="11.0" />
-         </font>
-      </JFXTextField>
       <ImageView fitHeight="268.0" fitWidth="173.0" layoutX="17.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/img_book_rental.jpg" />
@@ -55,30 +46,29 @@
             <Font name="Poppins Regular" size="11.0" />
          </font>
       </JFXTextField>
-      <Label layoutX="193.0" layoutY="176.0" text="ISSUE DATE" textFill="#001d39">
+      <Label layoutX="401.0" layoutY="131.0" text="ISSUE DATE" textFill="#001d39">
          <font>
             <Font name="Poppins Regular" size="12.0" />
          </font>
       </Label>
-      <Label layoutX="400.0" layoutY="116.0" text="TOTAL RENTAL AMOUNT" textFill="#001d39">
+      <Label layoutX="192.0" layoutY="116.0" text="TOTAL RENTAL AMOUNT" textFill="#001d39">
          <font>
             <Font name="Poppins Regular" size="12.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="txttotal" layoutX="400.0" layoutY="136.0" prefHeight="24.0" prefWidth="179.0" promptText="Enter rental price" text="Enter total rental" unFocusColor="#001d39">
+      <JFXTextField fx:id="txttotal" layoutX="192.0" layoutY="136.0" prefHeight="24.0" prefWidth="179.0" promptText="Enter rental price" text="Enter total rental" unFocusColor="#001d39">
          <font>
             <Font name="Poppins Regular" size="11.0" />
          </font>
       </JFXTextField>
-      <TableView fx:id="tblRentNReturn" layoutX="194.0" layoutY="239.0" prefHeight="111.0" prefWidth="440.0" stylesheets="@../css/style.css">
+      <TableView fx:id="tblRentNReturn" layoutX="194.0" layoutY="256.0" prefHeight="94.0" prefWidth="440.0" stylesheets="@../css/style.css">
         <columns>
           <TableColumn fx:id="colId" prefWidth="42.0" text="ID" />
           <TableColumn fx:id="colCustId" prefWidth="65.0" text="Cust. ID" />
-            <TableColumn fx:id="colCartId" prefWidth="61.0" text="Cart ID" />
             <TableColumn fx:id="colTotal" prefWidth="63.0" text="Total" />
-            <TableColumn fx:id="colIssueDate" prefWidth="63.0" text="Issue Date" />
-            <TableColumn fx:id="colDueDate" prefWidth="60.0" text="Due Date" />
-            <TableColumn fx:id="colReturnStatus" prefWidth="85.0" text="Return Status" />
+            <TableColumn fx:id="colIssueDate" prefWidth="91.0" text="Issue Date" />
+            <TableColumn fx:id="colDueDate" prefWidth="87.0" text="Due Date" />
+            <TableColumn fx:id="colReturnStatus" prefWidth="91.0" text="Return Status" />
         </columns>
       </TableView>
       <JFXButton layoutX="534.0" layoutY="25.0" onAction="#btnSearchOnAction" prefHeight="25.0" prefWidth="64.0" style="-fx-background-color: #49769F;" text="SEARCH" textFill="#bdd8e9">
@@ -97,18 +87,21 @@
             <Font name="Poppins Regular" size="12.0" />
          </font>
       </JFXButton>
-      <ImageView fitHeight="24.0" fitWidth="25.0" layoutX="606.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="17.0" fitWidth="23.0" layoutX="610.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/icon/icon_refresh.png" />
          </image>
+         <rotationAxis>
+            <Point3D x="-1.0" z="1.0" />
+         </rotationAxis>
       </ImageView>
-      <DatePicker fx:id="dpIssueDate" layoutX="258.0" layoutY="172.0" prefHeight="25.0" prefWidth="113.0" style="-fx-background-color: #EDF4F6;" />
-      <Label layoutX="400.0" layoutY="175.0" text="DUE DATE" textFill="#001d39">
+      <DatePicker fx:id="dpIssueDate" layoutX="466.0" layoutY="127.0" prefHeight="25.0" prefWidth="113.0" style="-fx-background-color: #EDF4F6;" />
+      <Label layoutX="400.0" layoutY="166.0" text="DUE DATE" textFill="#001d39">
          <font>
             <Font name="Poppins Regular" size="12.0" />
          </font>
       </Label>
-      <DatePicker fx:id="dpDueDate" layoutX="467.0" layoutY="171.0" prefHeight="25.0" prefWidth="113.0" style="-fx-background-color: #EDF4F6;" />
+      <DatePicker fx:id="dpDueDate" layoutX="467.0" layoutY="162.0" prefHeight="25.0" prefWidth="113.0" style="-fx-background-color: #EDF4F6;" />
       <JFXButton layoutX="530.0" layoutY="208.0" onAction="#btnPayNowOnAction" prefHeight="25.0" prefWidth="102.0" style="-fx-background-color: #49769F;" text="PAY NOW" textFill="#bdd8e9">
          <font>
             <Font name="Poppins Regular" size="12.0" />

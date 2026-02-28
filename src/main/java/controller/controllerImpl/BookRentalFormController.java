@@ -3,11 +3,16 @@ package controller.controllerImpl;
 import com.jfoenix.controls.JFXTextField;
 import controller.FormController;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import model.TM.BookTM;
+import model.TM.RentNReturnTM;
+import model.dto.Book;
 import model.dto.Payment;
 import model.dto.RentNReturn;
 import service.ServiceFactory;
@@ -17,16 +22,15 @@ import util.ServiceType;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class BookRentalFormController implements Initializable, FormController {
 
     @FXML
     private ComboBox cmbPaymentMethod;
-
-    @FXML
-    private TableColumn colCartId;
 
     @FXML
     private TableColumn colCustId;
@@ -56,9 +60,6 @@ public class BookRentalFormController implements Initializable, FormController {
     private TableView tblRentNReturn;
 
     @FXML
-    private JFXTextField txtCartId;
-
-    @FXML
     private JFXTextField txtCustId;
 
     @FXML
@@ -78,6 +79,23 @@ public class BookRentalFormController implements Initializable, FormController {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colCustId.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        colTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
+        colIssueDate.setCellValueFactory(new PropertyValueFactory<>("issueDate"));
+        colDueDate.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
+        colReturnStatus.setCellValueFactory(new PropertyValueFactory<>("returnStatus"));
+
+        loadTable();
+
+        tblRentNReturn.getSelectionModel().selectedItemProperty().addListener((observableValue,oldValue,newValue) ->{
+
+            System.out.println("Select record new value : "+newValue);
+
+            assert newValue !=null;
+            setTextToValues((RentNReturnTM) newValue);
+        });
 
         cmbPaymentMethod.setItems(FXCollections.observableArrayList(Arrays.asList("By Cash","By Card")));
         cmbPaymentMethod.setValue("By Cash");
@@ -114,11 +132,35 @@ public class BookRentalFormController implements Initializable, FormController {
 
     @FXML
     void btnRefreshOnAction(ActionEvent event) {
+        loadTable();
 
+        txtId.setText("");
+        txtCustId.setText("");
+        txttotal.setText("");
+        dpIssueDate.setValue(null);
+        dpDueDate.setValue(null);
     }
 
     @FXML
     void btnSearchOnAction(ActionEvent event) {
+        try{
+            RentNReturn rentNReturn = rentNReturnServiceType.searchRentById(txtSearch.getText());
+            if(rentNReturn!=null){
+                setTextToValues(rentNReturn);
+                loadTableBySearch(rentNReturn);
+            }
+            else{
+                new Alert(Alert.AlertType.INFORMATION,"No Rent Record found.").show();
+
+                txtId.setText("");
+                txtCustId.setText("");
+                txttotal.setText("");
+                dpIssueDate.setValue(null);
+                dpDueDate.setValue(null);
+            }
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -146,6 +188,71 @@ public class BookRentalFormController implements Initializable, FormController {
             dpIssueDate.setValue(rent.getIssueDate());
             dpDueDate.setValue(rent.getDueDate());
         }
+    }
+
+    private void loadTable(){
+        try{
+            List<RentNReturn> all = rentNReturnServiceType.getAll();
+            System.out.println(all);
+            ArrayList<RentNReturnTM> rentTMArrayList = new ArrayList<>();
+            all.forEach(rentNreturn -> {
+
+                rentTMArrayList.add(new RentNReturnTM(
+                        rentNreturn.getId(),
+                        rentNreturn.getCustomerId(),
+                        rentNreturn.getTotal(),
+                        rentNreturn.getIssueDate(),
+                        rentNreturn.getDueDate(),
+                        (rentNreturn.getIsAllReturned())?"All books Returned":"Pending"
+                ));
+            });
+
+            System.out.println(rentTMArrayList);
+
+            ObservableList<RentNReturnTM> observableList = FXCollections.observableArrayList(rentTMArrayList);
+            tblRentNReturn.setItems(observableList);
+
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void setTextToValues(RentNReturnTM rentNReturnTm){
+        if(rentNReturnTm !=null){
+            txtId.setText(rentNReturnTm.getId());
+            txtCustId.setText(rentNReturnTm.getCustomerId());
+            txttotal.setText(rentNReturnTm.getTotal().toString());
+            dpIssueDate.setValue(rentNReturnTm.getIssueDate());
+            dpDueDate.setValue(rentNReturnTm.getDueDate());
+        }
+    }
+
+    private void setTextToValues(RentNReturn rentNReturn){
+        if(rentNReturn !=null){
+            txtId.setText(rentNReturn.getId());
+            txtCustId.setText(rentNReturn.getCustomerId());
+            txttotal.setText(rentNReturn.getTotal().toString());
+            dpIssueDate.setValue(rentNReturn.getIssueDate());
+            dpDueDate.setValue(rentNReturn.getDueDate());
+        }
+    }
+
+    private void loadTableBySearch(RentNReturn rentNReturn){
+        ArrayList<RentNReturnTM> rentTMArrayList = new ArrayList<>();
+        rentTMArrayList.add(new RentNReturnTM(
+            rentNReturn.getId(),
+            rentNReturn.getCustomerId(),
+            rentNReturn.getTotal(),
+            rentNReturn.getIssueDate(),
+            rentNReturn.getDueDate(),
+            (rentNReturn.getIsAllReturned())?"All books Returned":"Pending"
+        ));
+
+        System.out.println(rentTMArrayList);
+
+        ObservableList<RentNReturnTM> observableList = FXCollections.observableArrayList(rentTMArrayList);
+        tblRentNReturn.setItems(observableList);
+
     }
 
 }

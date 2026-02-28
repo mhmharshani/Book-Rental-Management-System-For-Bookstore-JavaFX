@@ -10,5 +10,10 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface RentNReturnDetailsRepository extends SuperRepository {
+
     boolean insertRentDetails(List<RentNReturnDetails> rentNReturnDetailsList) throws SQLException;
+
+    List<RentNReturnDetails> searchDetailsByRentId(String string) throws SQLException;
+
+    boolean updateReturnDate(String id) throws SQLException;
 }

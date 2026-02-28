@@ -60,9 +60,9 @@ CREATE TABLE Kids (
 
 CREATE TABLE BookRentalReturn (
 	rent_id VARCHAR(8) PRIMARY KEY,
-    rent_total DECIMAL(5,2),
 	issue_date DATE,
     due_date DATE,
+    rent_total DECIMAL(5,2),
     is_all_returned BOOLEAN,
     customer_id VARCHAR(8),
     user_id VARCHAR(8),
@@ -71,6 +71,7 @@ CREATE TABLE BookRentalReturn (
 );
 
 -- DROP TABLE BookRentalReturn;
+Select * from BookRentalReturn;
 
 CREATE TABLE Author (
 	author_id VARCHAR(8) PRIMARY KEY,
@@ -98,20 +99,22 @@ CREATE TABLE BookDetails (
 	CONSTRAINT fk_book_id FOREIGN KEY (ISBN) REFERENCES Book(ISBN) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+Alter Table BookDetails Modify ISBN VARCHAR(20);
+
 CREATE TABLE RentDetails (
-	id VARCHAR(8) PRIMARY KEY,
 	rent_id VARCHAR(8),
-	ISBN VARCHAR(8),
+	ISBN VARCHAR(20),
     qty INT,
     total DECIMAL(5,2),
     return_date DATE,
+    CONSTRAINT PRIMARY KEY(rent_id,ISBN),
     CONSTRAINT fk_rent_id_details FOREIGN KEY (rent_id) REFERENCES BookRentalReturn(rent_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT fk_book_id_details FOREIGN KEY (ISBN) REFERENCES Book(ISBN) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- DROP TABLE RentDetails;
-
--- DROP TABLE RentDetails;
+Select * From rentDetails;
+ 
+DROP TABLE RentDetails;
 
 CREATE TABLE Payment (
 	ref_id VARCHAR(8) PRIMARY KEY,
@@ -121,6 +124,8 @@ CREATE TABLE Payment (
     status VARCHAR(30),
     CONSTRAINT fk_rent_id FOREIGN KEY (rent_id) REFERENCES BookRentalReturn(rent_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+SELECT * FROM PAyment;
 
 -- DROP TABLE Payment;
 
@@ -145,7 +150,7 @@ INSERT INTO UserInfo VALUES
 	('UI001','Saman','0752683710','Panadura','U001'),
 	('UI002','Rukshi','0775031810','Colombo','U002');
 
-SELECT * FROM UserCredentials;
+SELECT * FROM RentDetails;
 
 INSERT INTO Customer VALUES
 	('C0001','Jayani','0713456213','Kalutara'),
@@ -161,5 +166,7 @@ INSERT INTO Author VALUES
 	('978-0805087185','Brown Bear Brown Bear What Do You See?','Children',150.00,15,'A0003'),
     ('978-0763642648','Guess How much I love you','Children',150.00,5,'A0002');
     
-Select * from book;
+Select * from BookRentalReturn;
 
+INSERT INTO RentDetails VALUES
+	('R0001','978-0763642648',1,150.00,null);
