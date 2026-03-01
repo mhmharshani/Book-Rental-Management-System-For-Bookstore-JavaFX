@@ -20,6 +20,7 @@ public class RepositoryFactory {
             case AUTHOR: return (T) new AuthorRepositoryImpl();
             case RENTNRETURNDETAILS: return (T) new RentNReturnDetailsRepositoryImpl();
             case PAYMENT: return (T) new PaymentRepositoryImpl();
+            case USER: return (T) new UserLoginRepositoryImpl();
         }
         return null;
     }

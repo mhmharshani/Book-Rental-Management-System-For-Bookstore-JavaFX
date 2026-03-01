@@ -174,3 +174,6 @@ INSERT INTO RentDetails VALUES
 UPDATE RentDetails SET return_date='2026-02-28' WHERE rent_id='R0001';
 
 select * from book;
+
+INSERT INTO Author VALUES
+	('A0004','Tetsuko Kuroyanagi','Japan');

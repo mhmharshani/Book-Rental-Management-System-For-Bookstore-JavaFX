@@ -22,7 +22,6 @@ public class MenuFormController implements Initializable, FormController{
     @FXML
     private AnchorPane paneLoadContent;
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -80,7 +79,11 @@ public class MenuFormController implements Initializable, FormController{
         this.paneLoadContent = container;
     }
 
-//    private void loadView(String fxmlFile) throws IOException{
+    public AnchorPane getPaneLoadContent() {
+        return paneLoadContent;
+    }
+
+    //    private void loadView(String fxmlFile) throws IOException{
 //        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
 //        Parent load = loader.load();
 //        Object controller = loader.getController();

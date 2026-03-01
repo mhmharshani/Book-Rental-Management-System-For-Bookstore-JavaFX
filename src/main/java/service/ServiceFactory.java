@@ -1,9 +1,7 @@
 package service;
 
-import service.custom.impl.AuthorServiceImpl;
-import service.custom.impl.BookServiceImpl;
-import service.custom.impl.CustomerServiceImpl;
-import service.custom.impl.RentNReturnServiceImpl;
+import service.custom.UserLoginService;
+import service.custom.impl.*;
 import util.ServiceType;
 
 //Singleton factory
@@ -26,6 +24,8 @@ public class ServiceFactory {
             case BOOK : return (T) new BookServiceImpl();
             case RENTNRETURN : return (T) new RentNReturnServiceImpl();
             case AUTHOR: return (T) new AuthorServiceImpl();
+            case USER: return (T) new UserLoginServiceImpl();
+
         }
         return null;
     }
