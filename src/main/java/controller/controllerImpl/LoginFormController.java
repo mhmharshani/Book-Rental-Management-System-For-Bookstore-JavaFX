@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
 
 public class LoginFormController implements Initializable, FormController {
 
-    UserLoginService userLoginServiceType = ServiceFactory.getInstance().getServiceType(ServiceType.USER);
+    UserLoginService userLoginServiceType = ServiceFactory.getInstance().getServiceType(ServiceType.USERROLE);
 
     @FXML
     private JFXCheckBox chkAdmin;
@@ -62,23 +62,26 @@ public class LoginFormController implements Initializable, FormController {
                     Parent rootMain = loader.load();
                     MenuFormController controller = loader.getController();
 
+                    controller.setProfileName(userLoginServiceType.getProfileName(userName));
+                    System.out.println("in login "+controller.getProfileName());
+
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     Scene scene = new Scene(rootMain);
                     stage.setScene(scene);
                     stage.show();
 
                     AnchorPane paneContainer = controller.getPaneLoadContent();
-//
+
                     loader = new FXMLLoader(getClass().getResource("/view/dashboard_staff_form.fxml"));
                     Parent root = loader.load();
                     paneContainer.getChildren().clear();
                     paneContainer.getChildren().add(root);
 
+
                 }
             }
             else{
                 new Alert(Alert.AlertType.ERROR,"Your username or password is incorrect").show();
-
             }
         } catch (SQLException | IOException e) {
             throw new RuntimeException(e);
@@ -88,4 +91,5 @@ public class LoginFormController implements Initializable, FormController {
     public void setContainer(AnchorPane container) {
         this.paneContainer = container;
     }
+
 }

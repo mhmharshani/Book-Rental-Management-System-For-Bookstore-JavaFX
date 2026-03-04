@@ -8,4 +8,6 @@ import java.sql.SQLException;
 public interface UserLoginRepository extends SuperRepository {
 
     UserCredentials getUserByUserName(String userName) throws SQLException;
+
+    String getProfileName(String userName) throws SQLException;
 }

@@ -8,6 +8,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -22,9 +24,18 @@ public class MenuFormController implements Initializable, FormController{
     @FXML
     private AnchorPane paneLoadContent;
 
+
+
+    @Getter
+    @FXML
+    private String profileName;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println("At Initialize() profile name : "+profileName);
 
+        lblHelloUser.setText("Hello!");
+        System.out.println("At Initialize() lbl : "+lblHelloUser.getText());
     }
 
     @FXML
@@ -66,6 +77,8 @@ public class MenuFormController implements Initializable, FormController{
 
             controller.setContainer(paneLoadContent);
 
+            lblHelloUser.setText("Hello, "+profileName);
+
             paneLoadContent.getChildren().clear();
             paneLoadContent.getChildren().add(parent);
 
@@ -83,16 +96,8 @@ public class MenuFormController implements Initializable, FormController{
         return paneLoadContent;
     }
 
-    //    private void loadView(String fxmlFile) throws IOException{
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
-//        Parent load = loader.load();
-//        Object controller = loader.getController();
-//        controller.setContainer(paneLoadContent);
-//
-//        assert resource != null;
-//
-//        Parent parent = FXMLLoader.load(resource);
-//
-//    }
-
+    public void setProfileName(String profileName) {
+        System.out.println("In Setter");
+        this.profileName = profileName;
+    }
 }

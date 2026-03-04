@@ -10,31 +10,33 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="356.0" prefWidth="640.0" style="-fx-background-color: #BDD8E9;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.controllerImpl.ProfileFormController">
    <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#edf4f6" height="69.0" layoutX="203.0" layoutY="143.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="434.0" />
       <Label layoutX="14.0" layoutY="4.0" text="Profile Management" textFill="#001d39">
          <font>
             <Font name="Poppins SemiBold" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="234.0" layoutY="37.0" text="Staff ID | USERNAME" textFill="#001d39">
+      <Label layoutX="205.0" layoutY="32.0" text="Staff ID | USERNAME" textFill="#001d39">
          <font>
             <Font name="Poppins Regular" size="12.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="txtId" layoutX="234.0" layoutY="58.0" prefHeight="24.0" prefWidth="156.0" promptText="Enter ID" unFocusColor="#001d39">
+      <JFXTextField fx:id="txtId" layoutX="205.0" layoutY="53.0" prefHeight="24.0" prefWidth="53.0" promptText="Enter ID" unFocusColor="#001d39">
          <font>
             <Font name="Poppins Regular" size="11.0" />
          </font>
       </JFXTextField>
-      <Label layoutX="234.0" layoutY="93.0" text="DESIGNATION" textFill="#001d39">
+      <Label layoutX="205.0" layoutY="88.0" text="DESIGNATION" textFill="#001d39">
          <font>
             <Font name="Poppins Regular" size="12.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="txtDesignation" layoutX="234.0" layoutY="115.0" prefHeight="24.0" prefWidth="156.0" promptText="Enter your designation" unFocusColor="#001d39">
+      <JFXTextField fx:id="txtDesignation" layoutX="205.0" layoutY="110.0" prefHeight="24.0" prefWidth="130.0" promptText="Enter your designation" unFocusColor="#001d39">
          <font>
             <Font name="Poppins Regular" size="11.0" />
          </font>
@@ -49,22 +51,22 @@
             <Image url="@../img/img_profile_mgt.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="431.0" layoutY="37.0" text="NAME" textFill="#001d39">
+      <Label layoutX="350.0" layoutY="31.0" text="NAME" textFill="#001d39">
          <font>
             <Font name="Poppins Regular" size="12.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="txtName" layoutX="431.0" layoutY="59.0" prefHeight="24.0" prefWidth="156.0" promptText="Enter your name" unFocusColor="#001d39">
+      <JFXTextField fx:id="txtName" layoutX="350.0" layoutY="53.0" prefHeight="24.0" prefWidth="130.0" promptText="Enter your name" unFocusColor="#001d39">
          <font>
             <Font name="Poppins Regular" size="11.0" />
          </font>
       </JFXTextField>
-      <Label layoutX="431.0" layoutY="95.0" text="ADDRESS" textFill="#001d39">
+      <Label layoutX="350.0" layoutY="89.0" text="ADDRESS" textFill="#001d39">
          <font>
             <Font name="Poppins Regular" size="12.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="txtAddress" layoutX="431.0" layoutY="115.0" prefHeight="24.0" prefWidth="156.0" promptText="Enter address" unFocusColor="#001d39">
+      <JFXTextField fx:id="txtAddress" layoutX="350.0" layoutY="109.0" prefHeight="24.0" prefWidth="130.0" promptText="Enter address" unFocusColor="#001d39">
          <font>
             <Font name="Poppins Regular" size="11.0" />
          </font>
@@ -81,10 +83,11 @@
       </JFXButton>
       <TableView fx:id="tblUser" layoutX="16.0" layoutY="264.0" prefHeight="86.0" prefWidth="613.0" stylesheets="@../css/style.css">
         <columns>
-          <TableColumn fx:id="colId" prefWidth="48.0" text="ID" />
-          <TableColumn fx:id="colName" prefWidth="160.0" text="Name" />
-            <TableColumn fx:id="colDesignation" prefWidth="133.0" text="Designation" />
-            <TableColumn fx:id="colAddress" prefWidth="271.0" text="Address" />
+          <TableColumn fx:id="colId" prefWidth="85.0" text="Staff/User ID" />
+          <TableColumn fx:id="colName" prefWidth="118.0" text="Name" />
+            <TableColumn fx:id="colDesignation" prefWidth="153.0" text="Designation" />
+            <TableColumn fx:id="colAddress" prefWidth="149.0" text="Address" />
+            <TableColumn fx:id="colPhoneNumber" prefWidth="107.0" text="Phone Number" />
         </columns>
       </TableView>
       <JFXButton layoutX="532.0" layoutY="232.0" onAction="#btnSearchOnAction" prefHeight="25.0" prefWidth="64.0" style="-fx-background-color: #49769F;" text="SEARCH" textFill="#bdd8e9">
@@ -93,11 +96,6 @@
          </font>
       </JFXButton>
       <TextField fx:id="txtSearch" layoutX="376.0" layoutY="232.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #EDF4F6;" />
-      <ImageView fitHeight="23.0" fitWidth="25.0" layoutX="585.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/icon/icon_refresh.png" />
-         </image>
-      </ImageView>
       <JFXButton accessibleRole="IMAGE_VIEW" ellipsisString="" layoutX="604.0" layoutY="232.0" onAction="#btnRefreshOnAction" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #49769F;" textFill="#bdd8e9">
          <font>
             <Font name="Poppins Regular" size="12.0" />
@@ -108,21 +106,42 @@
             <Image url="@../img/icon/icon_refresh.png" />
          </image>
       </ImageView>
-      <Label layoutX="234.0" layoutY="155.0" text="PASSWORD" textFill="#001d39">
+      <Label layoutX="211.0" layoutY="155.0" text="Current Password" textFill="#001d39">
          <font>
             <Font name="Poppins Regular" size="12.0" />
          </font>
       </Label>
-      <JFXButton layoutX="487.0" layoutY="177.0" onAction="#btnChangePasswordOnAction" prefHeight="25.0" prefWidth="141.0" style="-fx-background-color: #49769F;" text="CHANGE PASSWORD" textFill="#bdd8e9">
+      <JFXButton layoutX="491.0" layoutY="176.0" onAction="#btnChangePasswordOnAction" prefHeight="25.0" prefWidth="136.0" style="-fx-background-color: #49769F;" text="CHANGE PASSWORD" textFill="#bdd8e9">
          <font>
             <Font name="Poppins Regular" size="12.0" />
          </font>
       </JFXButton>
-      <JFXPasswordField fx:id="txtPassword" layoutX="234.0" layoutY="177.0" prefHeight="25.0" prefWidth="156.0" promptText="********" />
-      <Label layoutX="15.0" layoutY="214.0" text="USER MANAGEMENT | ADMIN ONLY" textFill="#001d39">
+      <JFXPasswordField fx:id="txtCurrentPassword" layoutX="214.0" layoutY="174.0" prefHeight="25.0" prefWidth="109.0" promptText="********" />
+      <Label layoutX="15.0" layoutY="214.0" text="USER MANAGEMENT | ADMIN ONLY" textFill="#b50e03">
          <font>
             <Font name="Poppins SemiBold" size="12.0" />
          </font>
       </Label>
+      <Label layoutX="349.0" layoutY="155.0" text="New Password" textFill="#001d39">
+         <font>
+            <Font name="Poppins Regular" size="12.0" />
+         </font>
+      </Label>
+      <JFXPasswordField fx:id="txtNewPassword" layoutX="350.0" layoutY="174.0" prefHeight="25.0" prefWidth="109.0" promptText="********" />
+      <Label layoutX="498.0" layoutY="31.0" text="PHONE NUMBER" textFill="#001d39">
+         <font>
+            <Font name="Poppins Regular" size="12.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="txtPhoneNumber" layoutX="498.0" layoutY="53.0" prefHeight="24.0" prefWidth="130.0" promptText="Enter your phone no." unFocusColor="#001d39">
+         <font>
+            <Font name="Poppins Regular" size="11.0" />
+         </font>
+      </JFXTextField>
+      <JFXButton layoutX="267.0" layoutY="57.0" onAction="#btnGenerateIdOnAction" prefHeight="17.0" prefWidth="64.0" style="-fx-background-color: #49769F;" text="GENERATE" textFill="#bdd8e9">
+         <font>
+            <Font name="Poppins Regular" size="10.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>

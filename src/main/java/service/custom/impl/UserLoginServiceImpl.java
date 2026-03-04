@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class UserLoginServiceImpl implements UserLoginService {
 
-    UserLoginRepository userLoginRepositoryType = RepositoryFactory.getInstance().getRepositoryType(RepositoryType.USER);
+    UserLoginRepository userLoginRepositoryType = RepositoryFactory.getInstance().getRepositoryType(RepositoryType.USERROLE);
 
     @Override
     public boolean confirmUserCredentials(String userName, String password) throws SQLException {
@@ -20,5 +20,10 @@ public class UserLoginServiceImpl implements UserLoginService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public String getProfileName(String userName) throws SQLException {
+        return userLoginRepositoryType.getProfileName(userName);
     }
 }

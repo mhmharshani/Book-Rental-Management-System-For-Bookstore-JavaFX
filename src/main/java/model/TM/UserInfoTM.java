@@ -1,4 +1,4 @@
-package model.dto;
+package model.TM;
 
 import lombok.*;
 
@@ -7,11 +7,10 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class UserInfo {
-    String id;
+public class UserInfoTM {
     String name;
     String designation;
-    String phoneNumber;
     String address;
+    String phoneNumber;
     String userId;
 }

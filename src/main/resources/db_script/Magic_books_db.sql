@@ -16,14 +16,23 @@ CREATE TABLE UserCredentials (
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+Alter table UserCredentials ADD Constraint UNIQUE(username);
+
+Alter table Customer ADD Constraint UNIQUE(phone_number);
+
 CREATE TABLE UserInfo (
 	user_info_id VARCHAR(8) PRIMARY KEY,
 	name VARCHAR(50),
+    designation VARCHAR(30),
 	phone_number VARCHAR(15),
     address VARCHAR(250),
     user_id VARCHAR(8),
     CONSTRAINT fk_user_id_info FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+-- Drop table UserInfo;
+
+Alter table UserInfo ADD Constraint UNIQUE(phone_number);
 
 CREATE TABLE Roles (
 	role_id VARCHAR(8) PRIMARY KEY,
@@ -147,8 +156,8 @@ INSERT INTO UserCredentials VALUES
 	('UC002','U002','321','U002');
 
 INSERT INTO UserInfo VALUES
-	('UI001','Saman','0752683710','Panadura','U001'),
-	('UI002','Rukshi','0775031810','Colombo','U002');
+	('UI001','Saman','Sales Manager','0752683710','Panadura','U001'),
+	('UI002','Rukshi','Cashier','0775031810','Colombo','U002');
 
 SELECT * FROM RentDetails;
 
@@ -177,3 +186,15 @@ select * from book;
 
 INSERT INTO Author VALUES
 	('A0004','Tetsuko Kuroyanagi','Japan');
+    
+DESC usercredntials;
+
+select * from user;
+
+select * from userInfo;
+
+select * from usercredentials;
+
+-- DELETE FROM userInfo WHERE user_id='U003';
+-- DELETE FROM user WHERE user_id='U003';
+

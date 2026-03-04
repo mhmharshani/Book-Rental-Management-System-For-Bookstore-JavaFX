@@ -30,4 +30,16 @@ public class UserLoginRepositoryImpl implements UserLoginRepository {
         }
         return null;
     }
+
+    @Override
+    public String getProfileName(String userName) throws SQLException {
+        ResultSet resultSet = CrudUtil.execute("SELECT * FROM UserCredentials WHERE username = ? ",userName);
+        if(resultSet.next()){
+            resultSet = CrudUtil.execute("SELECT * FROM UserInfo WHERE user_id = ? ",resultSet.getString(4));
+            if(resultSet.next()) {
+                return resultSet.getString(2);
+            }
+        }
+        return null;
+    }
 }

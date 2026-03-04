@@ -24,7 +24,8 @@ public class ServiceFactory {
             case BOOK : return (T) new BookServiceImpl();
             case RENTNRETURN : return (T) new RentNReturnServiceImpl();
             case AUTHOR: return (T) new AuthorServiceImpl();
-            case USER: return (T) new UserLoginServiceImpl();
+            case USERROLE: return (T) new UserLoginServiceImpl();
+            case USER: return (T) new UserProfileServiceImpl();
 
         }
         return null;
